@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+}
+
+model invoice {
+  id            String            @id @default(auto()) @map("_id") @db.ObjectId
+  IBAN          String
+  OCR           String
+  address       Json?
+  amountTotal   Float
+  email         String
+  name          String
+  orderNumber   Int
+  paymentDate   DateTime          @db.Date
+  paymentStatus Boolean
+  paymentType   String
+  products      Json?
+  transfer      Boolean
+}
+
+model products {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  brand       String
+  category    String
+  description String
+  imageUrl    String
+  /// Multiple data types found: Float: 57.8%, Int: 23.4%, BigInt: 18.8% out of 64 sampled entries
+  price       Float
+  /// Multiple data types found: Int: 23.4%, BigInt: 76.6% out of 64 sampled entries
+  quantity    Int
+  title       String
+  unit        String
+}
+
+model testStripe {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  address        Json?
+  amount_total   Float
+  email          String
+  name           String
+  orderNummer    Int
+  paymentDate    DateTime @db.Date
+  payment_status String
+  payment_type   String
+  products       Json?
+  transfer       Boolean
+}
+
+model users {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}
