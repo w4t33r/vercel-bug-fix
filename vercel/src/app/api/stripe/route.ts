@@ -1,11 +1,17 @@
-import {NextResponse} from "next/server";
-import {PrismaClient} from "@prisma/client"
-import {stripe} from "../../../types"
+import { NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
+import { stripe } from '../../../types';
 
 export async function GET() {
-    const prisma = new PrismaClient()
-    const payment: stripe[] = await prisma.testStripe.findMany();
-    return NextResponse.json(payment)
-}
+    const prisma = new PrismaClient();
+    try {
+        const payment: stripe[] = await prisma.testStripe.findMany();
 
-//fetch('https://...', { next: { revalidate: 3600 } })
+        // Set the Cache-Control header to no-store to prevent caching
+        return NextResponse.json(payment, { headers: { 'Cache-Control': 'no-store' } });
+    } catch (error) {
+        return NextResponse.json({message:'500'});
+    } finally {
+        await prisma.$disconnect();
+    }
+}
