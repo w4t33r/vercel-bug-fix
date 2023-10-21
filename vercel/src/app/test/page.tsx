@@ -7,7 +7,7 @@ function PaymentList() {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch('/api/stripe',{ next: { revalidate: 1 } });
+            const response = await fetch('/api/stripe',{ cache: 'no-store' });
             if (response.ok) {
                 console.log(response)
                 const data = await response.json();
