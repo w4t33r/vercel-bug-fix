@@ -1,12 +1,23 @@
-import {NextResponse} from "next/server";
-import {PrismaClient} from "@prisma/client"
+import { NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
 
 export async function GET() {
+    const prisma = new PrismaClient();
 
+    try {
+        const payment = await prisma.testStripe.findMany({
+            where: {
+                orderNummer: {
+                    not:0
+                }
+            }
+        });
 
-    const prisma = new PrismaClient()
-    const payment = await prisma.testStripe.findMany();
-
-    return NextResponse.json(payment)
+        return NextResponse.json(payment);
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({message:'Internal server error'});
+    } finally {
+        await prisma.$disconnect();
+    }
 }
-
