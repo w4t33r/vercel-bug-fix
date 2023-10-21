@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
+import prisma from '../../../../lib/prisma';
 export async function GET() {
-    const prisma = new PrismaClient();
 
     try {
         const payment = await prisma.testStripe.findMany({
