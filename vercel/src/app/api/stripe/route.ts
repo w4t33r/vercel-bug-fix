@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import prisma from "@/app/db";
 import { stripe } from '../../../types';
 
 export async function GET() {
