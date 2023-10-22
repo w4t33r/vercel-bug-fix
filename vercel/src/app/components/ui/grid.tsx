@@ -1,8 +1,5 @@
 "use client";
 import { testStripe } from "@prisma/client";
-
-import Link from "next/link";
-
 export default function ProductGridTemplate({
                                                 product,
 
@@ -44,9 +41,6 @@ export default function ProductGridTemplate({
                                     {" "}
                                     <div className="text-start p-2 lg:p-0">
                                         <div className="mt-4 mb-1 flex flex-row justify-between">
-                                            <p className=" text-gray-500 text-xs truncate font-medium">
-                                                {item.orderNummer}
-                                            </p>
                                             <p className=" text-gray-500 text-xs truncate font-medium">
                                                order {item.orderNummer}
                                             </p>
