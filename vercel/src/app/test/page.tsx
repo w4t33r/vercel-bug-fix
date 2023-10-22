@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from 'react';
 import {stripe} from '../../types'
+import prisma from '../db'
 
 function PaymentList() {
     const [payments, setPayments] = useState<stripe[]>([]);
@@ -17,6 +18,7 @@ function PaymentList() {
         }
         fetchData();
     }, []);
+
 
     return (
         <div>
